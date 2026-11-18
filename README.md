@@ -6,8 +6,8 @@ This project helped me practice JS. No AI was used in the creation process, [MDN
 
 ## Controls:
 
-    + Click on a book to mark it as read
-    + Double click to remove it
+- Click on a book to mark it as read
+- Double click to remove it
 
 > Open this on desktop for the intended experience
 
