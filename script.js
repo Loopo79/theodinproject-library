@@ -15,7 +15,7 @@ const bookGenreInput = document.querySelector("#book-genre");
 
 const library = new Array();
 
-function Book(name, year, author, genre) {
+function Book(name, author, year, genre) {
     this.id = crypto.randomUUID();
     this.name = name;
     this.author = author;
@@ -24,28 +24,43 @@ function Book(name, year, author, genre) {
     this.hasRead = false;
 }
 
-Book.prototype.read = function (hasRead) {
-    this.hasRead = true;
+Book.className = "book";
+Book.readClassName = "book read";
+Book.unreadClassName = "book";
+
+Book.prototype.toggleHasRead = function () {
+    this.hasRead = !this.hasRead;
 };
+
+function bookClickHandler(e) {
+    const bookElement = e.target;
+    const book = library.find((book) => book.id === bookElement.dataset.id);
+    book.toggleHasRead();
+    bookElement.className = book.hasRead
+        ? Book.readClassName
+        : Book.unreadClassName;
+    console.log(book.id, bookElement.className);
+}
 
 function createBookElement(book) {
     const bookElement = document.createElement("div");
-    bookElement.className = "book";
+    bookElement.className = Book.className;
 
     bookElement.dataset.id = book.id;
     bookElement.dataset.name = book.name;
     bookElement.dataset.author = book.author;
     bookElement.dataset.year = book.year;
     bookElement.dataset.genre = book.genre;
-    bookElement.dataset.hasRead = book.hasRead;
 
     bookElement.innerText = book.name;
+
+    bookElement.addEventListener("click", bookClickHandler);
 
     return bookElement;
 }
 
-function addToLibrary(name, year, author, genre) {
-    const book = new Book(name, year, author, genre);
+function addToLibrary(name, author, year, genre) {
+    const book = new Book(name, author, year, genre);
     library.push(book);
     libraryContainer.appendChild(createBookElement(book));
 }

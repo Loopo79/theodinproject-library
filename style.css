@@ -44,6 +44,10 @@ body {
     align-content: center;
 }
 
+.book.read {
+    border-color: #0ee50e;
+}
+
 .form-container form .form-elements-container {
     display: grid;
     grid: repeat(4, 32px) / 64px 1fr;
