@@ -4,6 +4,11 @@ This was created to complete a project in [The Odin Project](https://www.theodin
 
 This project helped me practice JS. No AI was used in the creation process, [MDN](https://developer.mozilla.org/) was the primary reference.
 
+## Controls:
+
+    + Click on a book to mark it as read
+    + Double click to remove it
+
 > Open this on desktop for the intended experience
 
 Link: [Click here](https://loopo79.github.io/theodinproject-library/)
