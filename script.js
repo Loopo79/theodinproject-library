@@ -32,13 +32,30 @@ Book.prototype.toggleHasRead = function () {
     this.hasRead = !this.hasRead;
 };
 
+Book.isEqual = function (b1, b2) {
+    return b1.id === b2.id;
+};
+
+Book.equateWithID = function (id) {
+    return Book.isEqual.bind(null, { id });
+};
+
 function bookClickHandler(e) {
-    const bookElement = e.target;
-    const book = library.find((book) => book.id === bookElement.dataset.id);
+    const bookElement = e.currentTarget;
+    const book = library.find(Book.equateWithID(bookElement.dataset.id));
     book.toggleHasRead();
     bookElement.className = book.hasRead
         ? Book.readClassName
         : Book.unreadClassName;
+}
+
+function bookDoubleClickHandler(e) {
+    const bookElement = e.target;
+    library.splice(
+        library.findIndex(Book.equateWithID(bookElement.dataset.id)),
+        1,
+    );
+    libraryContainer.removeChild(bookElement);
 }
 
 function createBookElement(book) {
@@ -54,6 +71,7 @@ function createBookElement(book) {
     bookElement.innerText = book.name;
 
     bookElement.addEventListener("click", bookClickHandler);
+    bookElement.addEventListener("dblclick", bookDoubleClickHandler);
 
     return bookElement;
 }
