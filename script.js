@@ -39,7 +39,6 @@ function bookClickHandler(e) {
     bookElement.className = book.hasRead
         ? Book.readClassName
         : Book.unreadClassName;
-    console.log(book.id, bookElement.className);
 }
 
 function createBookElement(book) {
