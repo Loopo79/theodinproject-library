@@ -46,7 +46,6 @@ function createBookElement(book) {
 
 function addToLibrary(name, year, author, genre) {
     const book = new Book(name, year, author, genre);
-    console.log(book);
     library.push(book);
     libraryContainer.appendChild(createBookElement(book));
 }
@@ -61,7 +60,12 @@ submitButton.addEventListener("click", (e) => {
         return;
     }
 
-    addToLibrary(bookName, bookAuthor, bookYear, bookGenre);
+    addToLibrary(
+        bookName.trim(),
+        bookAuthor.trim(),
+        bookYear.trim(),
+        bookGenre.trim(),
+    );
     e.preventDefault();
 });
 
