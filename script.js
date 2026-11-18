@@ -60,14 +60,9 @@ function bookDoubleClickHandler(e) {
 
 function createBookElement(book) {
     const bookElement = document.createElement("div");
+
     bookElement.className = Book.className;
-
     bookElement.dataset.id = book.id;
-    bookElement.dataset.name = book.name;
-    bookElement.dataset.author = book.author;
-    bookElement.dataset.year = book.year;
-    bookElement.dataset.genre = book.genre;
-
     bookElement.innerText = book.name;
 
     bookElement.addEventListener("click", bookClickHandler);
