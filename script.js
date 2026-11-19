@@ -32,12 +32,10 @@ Book.prototype.toggleHasRead = function () {
     this.hasRead = !this.hasRead;
 };
 
-Book.isEqual = function (b1, b2) {
-    return b1.id === b2.id;
-};
-
 Book.equateWithID = function (id) {
-    return Book.isEqual.bind(null, { id });
+    return function (book) {
+        return book.id === id;
+    };
 };
 
 function bookClickHandler(e) {
