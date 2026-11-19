@@ -38,13 +38,20 @@ Book.equateWithID = function (id) {
     };
 };
 
+function refreshLibraryContainer() {
+    while (libraryContainer.firstChild) {
+        libraryContainer.removeChild(libraryContainer.firstChild);
+    }
+    library.forEach((book) => {
+        libraryContainer.appendChild(createBookElement(book));
+    });
+}
+
 function bookClickHandler(e) {
     const bookElement = e.currentTarget;
     const book = library.find(Book.equateWithID(bookElement.dataset.id));
     book.toggleHasRead();
-    bookElement.className = book.hasRead
-        ? Book.readClassName
-        : Book.unreadClassName;
+    refreshLibraryContainer();
 }
 
 function bookDoubleClickHandler(e) {
@@ -53,13 +60,20 @@ function bookDoubleClickHandler(e) {
         library.findIndex(Book.equateWithID(bookElement.dataset.id)),
         1,
     );
-    libraryContainer.removeChild(bookElement);
+    refreshLibraryContainer();
+}
+
+function addToLibrary(name, author, year, genre) {
+    const book = new Book(name, author, year, genre);
+    library.push(book);
 }
 
 function createBookElement(book) {
     const bookElement = document.createElement("div");
 
-    bookElement.className = Book.className;
+    bookElement.className = book.hasRead
+        ? Book.readClassName
+        : Book.unreadClassName;
     bookElement.dataset.id = book.id;
     bookElement.innerText = book.name;
 
@@ -67,12 +81,6 @@ function createBookElement(book) {
     bookElement.addEventListener("dblclick", bookDoubleClickHandler);
 
     return bookElement;
-}
-
-function addToLibrary(name, author, year, genre) {
-    const book = new Book(name, author, year, genre);
-    library.push(book);
-    libraryContainer.appendChild(createBookElement(book));
 }
 
 submitButton.addEventListener("click", (e) => {
@@ -91,6 +99,7 @@ submitButton.addEventListener("click", (e) => {
         bookYear.trim(),
         bookGenre.trim(),
     );
+    refreshLibraryContainer();
     e.preventDefault();
 });
 
